@@ -1,5 +1,7 @@
 # EML2PDF
-A Python script to batch-convert email files (.eml) into PDFs. For each email, the script extracts key information (date, subject, sender, etc.), builds a simple HTML representation, and then uses a PDF conversion tool to generate a PDF. The resulting PDF file is named using the email’s date in YYYY-MM-DD format followed by a sanitized version of the email subject (e.g., 2025-03-05_My_Email_Subject.pdf).   
+A Python script to convert email files (.eml) into PDFs; you can process a single .eml file or a directory in bulk.  
+
+For each email, the script extracts key information (date, subject, sender, etc.), builds a simple HTML representation, and then uses a PDF conversion tool to generate a PDF. The resulting PDF file is named using the email’s date in YYYY-MM-DD format followed by a sanitized version of the email subject (e.g., 2025-03-05_My_Email_Subject.pdf).   
 
 ## Features   
 •	Batch Processing: Converts all .eml files in a specified directory.   
