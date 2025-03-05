@@ -6,6 +6,7 @@ import re
 import pdfkit
 import os
 import argparse
+import sys
 
 def sanitize_subject(subject):
     """Remove unsafe characters from subject to create a safe file name."""
@@ -92,9 +93,16 @@ def process_directory(input_dir, output_dir="."):
             eml_to_pdf(eml_path, output_dir)
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Convert all .eml files in a directory to PDFs")
-    parser.add_argument("input_directory", help="Directory containing .eml files")
+    parser = argparse.ArgumentParser(description="Convert .eml files to PDFs. Input can be a directory or a single .eml file.")
+    parser.add_argument("input_path", help="Path to an .eml file or a directory containing .eml files")
     parser.add_argument("output_directory", nargs="?", default=".", help="Directory to save PDF files (default: current directory)")
     args = parser.parse_args()
 
-    process_directory(args.input_directory, args.output_directory)
+    if os.path.isdir(args.input_path):
+        process_directory(args.input_path, args.output_directory)
+    elif os.path.isfile(args.input_path) and args.input_path.lower().endswith(".eml"):
+        os.makedirs(args.output_directory, exist_ok=True)
+        eml_to_pdf(args.input_path, args.output_directory)
+    else:
+        print("Error: The input path must be an .eml file or a directory containing .eml files.", file=sys.stderr)
+        sys.exit(1)
